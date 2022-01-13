@@ -3,6 +3,8 @@ package com.crystal.sampleyoutube
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,6 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var videoAdapter: VideoAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,6 +22,15 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragment_container, PlayerFragment())
             .commit()
         getVideoList()
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        videoAdapter = VideoAdapter()
+        findViewById<RecyclerView>(R.id.mainRecyclerView).apply {
+            adapter = videoAdapter
+            layoutManager= LinearLayoutManager(context)
+        }
     }
 
     private fun getVideoList() {
@@ -33,8 +46,9 @@ class MainActivity : AppCompatActivity() {
                         Log.e("MainActivity", "response fail")
                         return
                     }
-                    response.body()?.let { dto ->
-                        Log.d("MainActivity", dto.toString())
+                    response.body()?.let { videoDto ->
+//                        Log.d("MainActivity", dto.toString())
+                        videoAdapter.submitList(videoDto.videos)
                     }
                 }
 

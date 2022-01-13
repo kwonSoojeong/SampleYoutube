@@ -1,6 +1,6 @@
 package com.crystal.sampleyoutube
 
-data class VidioModel(
+data class VideoModel(
     val description: String,
     val source: String,
     val subTitle: String,

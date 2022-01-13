@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.crystal.sampleyoutube.databinding.FragmentPlayerBinding
 import kotlin.math.abs
 
@@ -32,6 +33,16 @@ class PlayerFragment : Fragment(R.layout.fragment_player) {
             override fun onTransitionTrigger(motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float) {
             }
         })
+
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        binding?.let {
+            val adapter = VideoAdapter()
+            it.recyclerView.adapter = adapter
+            it.recyclerView.layoutManager = LinearLayoutManager(context)
+        }
     }
 
     override fun onDestroy() {

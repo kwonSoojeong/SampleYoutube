@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.crystal.sampleyoutube.CustomMotionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragmentPlayerMotionLayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -49,6 +50,7 @@
         tools:text="sadfasdf" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="@color/teal_700"
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -57,4 +59,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mainContainerLayout" />
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</com.crystal.sampleyoutube.CustomMotionLayout>
