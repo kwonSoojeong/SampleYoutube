@@ -3,6 +3,7 @@ package com.crystal.sampleyoutube
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.constraintlayout.motion.widget.TransitionAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.crystal.sampleyoutube.databinding.FragmentPlayerBinding
@@ -15,26 +16,27 @@ class PlayerFragment : Fragment(R.layout.fragment_player) {
         super.onViewCreated(view, savedInstanceState)
         val fragmentPlayerBinding = FragmentPlayerBinding.bind(view)
         binding = fragmentPlayerBinding
+        initMotionLayoutEvent()
+        initRecyclerView()
+    }
 
-        fragmentPlayerBinding.fragmentPlayerMotionLayout.setTransitionListener(object :
-            MotionLayout.TransitionListener {
-            override fun onTransitionStarted(motionLayout: MotionLayout?, startId: Int,endId: Int) {
-            }
-            override fun onTransitionChange(motionLayout: MotionLayout?, startId: Int, endId: Int, progress: Float) {
+    private fun initMotionLayoutEvent() {
+        binding?.fragmentPlayerMotionLayout?.setTransitionListener(object : TransitionAdapter() {
+            override fun onTransitionChange(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float
+            ) {
                 //fragmentPlayerMotionLayout이 동작할 때, Main activity에 있는 Motion을 실행시킬것임
                 binding.let {
-                    (activity as MainActivity).also{ mainActivity ->
-                    mainActivity.findViewById<MotionLayout>(R.id.mainMotionLayout).progress = abs(progress)
+                    (activity as MainActivity).also { mainActivity ->
+                        mainActivity.findViewById<MotionLayout>(R.id.mainMotionLayout).progress =
+                            abs(progress)
                     }
                 }
             }
-            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
-            }
-            override fun onTransitionTrigger(motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float) {
-            }
         })
-
-        initRecyclerView()
     }
 
     private fun initRecyclerView() {
