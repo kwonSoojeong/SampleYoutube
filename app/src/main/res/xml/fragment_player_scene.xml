@@ -5,8 +5,23 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="1000">
-        <KeyFrameSet></KeyFrameSet>
+        motion:duration="300">
+        <KeyFrameSet>
+            <KeyAttribute
+                motion:motionTarget="@+id/bottomPlayerControlButton"
+                motion:framePosition="10"
+                android:alpha="0" />
+            <KeyAttribute
+                motion:motionTarget="@+id/titleTextView"
+                motion:framePosition="10"
+                android:alpha="0" />
+            <KeyPosition
+                motion:motionTarget="@+id/playerView"
+                motion:framePosition="10"
+                motion:keyPositionType="deltaRelative"
+                motion:percentX="1"
+                motion:percentWidth="1"/>
+        </KeyFrameSet>
         <OnSwipe
             motion:touchAnchorId="@+id/mainContainerLayout"
             motion:touchAnchorSide="bottom" />
@@ -17,7 +32,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0.1dp"
-            android:layout_marginBottom="66dp"
+            android:layout_marginBottom="60dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
@@ -27,7 +42,7 @@
             android:id="@+id/mainContainerLayout"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_marginBottom="66dp"
+            android:layout_marginBottom="60dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
