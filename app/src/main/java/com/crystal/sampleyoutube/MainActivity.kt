@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var videoAdapter: VideoAdapter
+    private lateinit var videoListAdapter: VideoListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +26,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        videoAdapter = VideoAdapter()
+        videoListAdapter = VideoListAdapter(
+            callback = { url, title -> //playFragment motion 펼쳐지고 play, view update!
+                supportFragmentManager.fragments.find { it is PlayerFragment }?.let {
+                    (it as PlayerFragment).play(url, title)
+                }
+            }
+        )
         findViewById<RecyclerView>(R.id.mainRecyclerView).apply {
-            adapter = videoAdapter
+            adapter = videoListAdapter
             layoutManager= LinearLayoutManager(context)
         }
     }
+
 
     private fun getVideoList() {
         val retrofit = Retrofit.Builder()
@@ -48,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     response.body()?.let { videoDto ->
 //                        Log.d("MainActivity", dto.toString())
-                        videoAdapter.submitList(videoDto.videos)
+                        videoListAdapter.submitList(videoDto.videos)
                     }
                 }
 

@@ -6,7 +6,6 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:background="@color/teal_700"
         android:id="@+id/videoThumbImageView"
         android:layout_width="0dp"
         android:layout_height="230dp"

@@ -10,16 +10,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class VideoAdapter:ListAdapter<VideoModel, VideoAdapter.ViewHolder>(diffUtil) {
+class VideoListAdapter(val callback: (sourceUrl:String, title:String) -> Unit):ListAdapter<VideoModel, VideoListAdapter.ViewHolder>(diffUtil) {
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(item: VideoModel){
             view.findViewById<TextView>(R.id.titleTextView).text =item.title
-            view.findViewById<TextView>(R.id.subtitleTextView).text =item.subTitle
+            view.findViewById<TextView>(R.id.subtitleTextView).text =item.subtitle
+
             val thumbnailImageView = view.findViewById<ImageView>(R.id.videoThumbImageView)
             Glide.with(thumbnailImageView.context)
                 .load(item.thumb)
                 .into(thumbnailImageView)
 
+            view.setOnClickListener {
+                callback(item.source, item.title)
+            }
         }
     }
 
